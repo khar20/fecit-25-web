@@ -1,0 +1,44 @@
+---
+interface Props {
+    title: string;
+    time: string;
+    venue: string;
+    duration: number;
+    genre: string;
+    poster: string;
+}
+const { title, time, venue, duration, genre, poster } = Astro.props;
+---
+
+<div class="movie-card">
+    <img src={poster} alt={`Poster de ${title}`} loading="lazy" />
+    <div class="card-content">
+        <h3>{title}</h3>
+        <p class="details">{time} | {venue}</p>
+        <p class="meta">{duration} min | {genre}</p>
+    </div>
+</div>
+
+<style>
+    .movie-card {
+        background: transparent;
+    }
+    .movie-card img {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+    }
+    .card-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    .details {
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+    .meta {
+        font-size: 0.8rem;
+        color: #aaa;
+    }
+</style>

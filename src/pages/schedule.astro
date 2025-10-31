@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MovieCard from "../components/MovieCard.astro";
+
+// todo: replace dummy data
+const movies = [
+    {
+        title: "El Silencio del Viento",
+        time: "19:00",
+        venue: "Teatro Municipal",
+        genre: "Documental",
+        duration: 95,
+        poster: "/assets/posters/el-silencio.jpg",
+    },
+    {
+        title: "Retablo",
+        time: "19:00",
+        venue: "Cineplanet",
+        genre: "Ficción",
+        duration: 101,
+        poster: "/assets/posters/retablo.jpg",
+    },
+    {
+        title: "Canción sin Nombre",
+        time: "20:00",
+        venue: "Teatro Municipal",
+        genre: "Ficción",
+        duration: 97,
+        poster: "/assets/posters/cancion.jpg",
+    },
+    {
+        title: "La Teta Asustada",
+        time: "20:12",
+        venue: "Auditorio UPAO",
+        genre: "Ficción",
+        duration: 100,
+        poster: "/assets/posters/teta-asustada.jpg",
+    },
+    {
+        title: "Willaqpacha",
+        time: "19:00",
+        venue: "Cine Municipal",
+        genre: "Ficción",
+        duration: 86,
+        poster: "/assets/posters/willaqpacha.jpg",
+    },
+    {
+        title: "Magallanes",
+        time: "21:00",
+        venue: "Cineplanet",
+        genre: "Ficción",
+        duration: 109,
+        poster: "/assets/posters/magallanes.jpg",
+    },
+];
+---
+
+<Layout title="Programación">
+    <div class="container">
+        <header class="page-header">
+            <h1>Programación del Festival</h1>
+            <p>
+                Explora el calendario de proyecciones del Festival de Cine de
+                Trujillo.
+            </p>
+        </header>
+
+        <div class="filters">
+            {/* todo: add filters */}
+            <button class="filter-btn active">Oct 25</button>
+            <button class="filter-btn">Oct 26</button>
+            <button class="filter-btn">Oct 27</button>
+        </div>
+
+        <div class="schedule-grid">
+            {movies.map((movie) => <MovieCard {...movie} />)}
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .filters {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+    }
+    .filter-btn {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1px solid #333;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .filter-btn.active {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+    .schedule-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 2rem;
+    }
+</style>

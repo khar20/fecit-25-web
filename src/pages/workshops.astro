@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WorkshopCard from "../components/WorkshopCard.astro";
+
+// todo: replace dummy data
+const allWorkshops = [
+    {
+        title: "Masterclass de Dirección de Fotografía",
+        instructor: "Impartido por Alejandro Cruz",
+        date: "15 de Noviembre",
+        time: "10:00 - 13:00",
+        location: "Sala Audiovisual, Teatro Municipal",
+        cta: "Inscríbete Ahora",
+        link: "#",
+        isFeatured: true,
+    },
+    {
+        title: "Taller de Escritura de Guion",
+        instructor: "Impartido por Sofia Méndez",
+        date: "16 de Noviembre",
+        time: "09:00 - 12:00",
+        location: "Sala de Conferencias, UPAO",
+        cta: "Ver Detalles",
+        link: "#",
+    },
+    {
+        title: "Masterclass de Dirección de Actores",
+        instructor: "Impartido por Ricardo Vega",
+        date: "17 de Noviembre",
+        time: "14:00 - 17:00",
+        location: "C.C. El Cultural",
+        cta: "Cupos Limitados",
+        link: "#",
+    },
+];
+---
+
+<Layout title="Talleres">
+    <div class="container">
+        <header class="page-header">
+            <h1>Workshops y Masterclasses de FECIT</h1>
+            <p>Expand your skills and learn from industry experts.</p>
+        </header>
+        <div class="workshops-list">
+            {
+                allWorkshops.map((ws) => (
+                    <WorkshopCard {...ws} isDetailedView={true} />
+                ))
+            }
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .workshops-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    {/* mobile */}
+    @media (min-width: 992px) {
+        .workshops-list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+</style>

@@ -1,0 +1,97 @@
+---
+// src/components/WorkshopCard.astro
+interface Props {
+    title: string;
+    instructor: string;
+    date?: string;
+    time?: string;
+    location?: string;
+    cta?: string;
+    link: string;
+    isDetailedView?: boolean;
+    isFeatured?: boolean; // styling the button differently
+}
+const {
+    title,
+    instructor,
+    date,
+    time,
+    location,
+    cta,
+    link,
+    isDetailedView = false,
+    isFeatured = false,
+} = Astro.props;
+---
+
+<div class="workshop-card">
+    <div class="card-image-placeholder"></div>
+    <div class="card-body">
+        <h3>{title}</h3>
+        <p class="instructor">{instructor}</p>
+
+        {
+            isDetailedView && (
+                <div class="details">
+                    <p>
+                        <strong>Fecha:</strong> {date}
+                    </p>
+                    <p>
+                        <strong>Hora:</strong> {time}
+                    </p>
+                    <p>
+                        <strong>Lugar:</strong> {location}
+                    </p>
+                </div>
+            )
+        }
+
+        <div class="card-action">
+            <a href={link} class:list={["button", { featured: isFeatured }]}
+                >{cta || "Learn More →"}</a
+            >
+        </div>
+    </div>
+</div>
+
+<style>
+    .workshop-card {
+        background: var(--color-surface);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #2a2a2a;
+    }
+    .card-image-placeholder {
+        height: 180px;
+        background-color: #333; /* todo: replace for an image */
+    }
+    .card-body {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body h3 {
+        font-size: 1.25rem;
+    }
+    .instructor {
+        color: #ccc;
+        margin-bottom: 1rem;
+    }
+    .details {
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+    .card-action {
+        margin-top: auto;
+    }
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+    .button.featured {
+        background-color: var(--color-primary);
+    }
+</style>
