@@ -2,6 +2,12 @@
 
 /* css variables */
 :root {
+    --color-yellow: #fcaa06;
+    --color-light-blue: #39b9d5;
+    --color-red: #ed3d1b;
+    --color-purple: #776ca4;
+    --color-blue: #154293;
+    
     --color-bg: #121212;
     --color-text: #EFEFEF;
     --color-primary: #D92E3A;
