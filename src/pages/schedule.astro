@@ -11,6 +11,7 @@ const movies = [
         genre: "Documental",
         duration: 95,
         poster: "/assets/posters/el-silencio.jpg",
+        date: "Oct 25",
     },
     {
         title: "Retablo",
@@ -19,6 +20,7 @@ const movies = [
         genre: "Ficción",
         duration: 101,
         poster: "/assets/posters/retablo.jpg",
+        date: "Oct 25",
     },
     {
         title: "Canción sin Nombre",
@@ -27,6 +29,7 @@ const movies = [
         genre: "Ficción",
         duration: 97,
         poster: "/assets/posters/cancion.jpg",
+        date: "Oct 26",
     },
     {
         title: "La Teta Asustada",
@@ -35,6 +38,7 @@ const movies = [
         genre: "Ficción",
         duration: 100,
         poster: "/assets/posters/teta-asustada.jpg",
+        date: "Oct 27",
     },
     {
         title: "Willaqpacha",
@@ -43,6 +47,7 @@ const movies = [
         genre: "Ficción",
         duration: 86,
         poster: "/assets/posters/willaqpacha.jpg",
+        date: "Oct 26",
     },
     {
         title: "Magallanes",
@@ -51,8 +56,11 @@ const movies = [
         genre: "Ficción",
         duration: 109,
         poster: "/assets/posters/magallanes.jpg",
+        date: "Oct 27",
     },
 ];
+
+const uniqueDates = [...new Set(movies.map((movie) => movie.date))];
 ---
 
 <Layout title="Programación">
@@ -66,14 +74,19 @@ const movies = [
         </header>
 
         <div class="filters">
-            {/* todo: add filters */}
-            <button class="filter-btn active">Oct 25</button>
-            <button class="filter-btn">Oct 26</button>
-            <button class="filter-btn">Oct 27</button>
+            {uniqueDates.map((date, index) => (
+                <button class:list={["filter-btn", { active: index === 0 }]} data-date={date}>
+                    {date}
+                </button>
+            ))}
         </div>
 
         <div class="schedule-grid">
-            {movies.map((movie) => <MovieCard {...movie} />)}
+            {movies.map((movie) => (
+                <div class="movie-card-wrapper" data-date={movie.date}>
+                    <MovieCard {...movie} />
+                </div>
+            ))}
         </div>
     </div>
 </Layout>
@@ -107,4 +120,43 @@ const movies = [
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 2rem;
     }
+
+    .movie-card-wrapper.hidden {
+        display: none;
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filterButtons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+        const movieCards = document.querySelectorAll<HTMLDivElement>(".movie-card-wrapper");
+
+        function filterMovies(selectedDate: string | undefined) {
+            movieCards.forEach((card) => {
+                if (card.dataset.date === selectedDate) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+        }
+        
+        // find the initial active button
+        const initialActiveButton = document.querySelector<HTMLButtonElement>(".filter-btn.active");
+        if (initialActiveButton) {
+            filterMovies(initialActiveButton.dataset.date);
+        }
+
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                // update active button
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                // filter the movie cards
+                const selectedDate = button.dataset.date;
+                filterMovies(selectedDate);
+            });
+        });
+    });
+</script>
